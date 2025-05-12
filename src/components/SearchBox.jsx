@@ -8,7 +8,8 @@ import { IoMdSearch } from "react-icons/io";
 
 export default function SearchBox() {
   const searchParams = useSearchParams();
-  const searchTerm = searchParams.get("SearchTerm");
+  const searchTerm = searchParams.get("searchTerm");
+
   const [term, setTerm] = useState(searchTerm || "");
 
   const router = useRouter();

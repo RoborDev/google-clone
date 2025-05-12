@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import ImageSearchResult from "@/components/ImageSearchResult";
+import VideoSearchResults from "@/components/VideoSearchResults";
 
-export default async function ImageSearchPage({ searchParams }) {
+export default async function VideoSearchPage({ searchParams }) {
   const searchTerm = searchParams?.searchTerm || "";
 
   if (!searchTerm) {
@@ -12,7 +12,7 @@ export default async function ImageSearchPage({ searchParams }) {
   await new Promise((resolve) => setTimeout(resolve, 5000));
 
   const res = await fetch(
-    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchTerm}&searchType=image`,
+    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=site:youtube.com ${searchTerm}`,
     { cache: "no-store" }
   );
 
@@ -37,5 +37,5 @@ export default async function ImageSearchPage({ searchParams }) {
     );
   }
 
-  return <ImageSearchResult results={data} />;
+  return <VideoSearchResults results={data} />;
 }

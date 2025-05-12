@@ -3,18 +3,20 @@
 import React from "react";
 import { IoMdSearch } from "react-icons/io";
 import { FaCamera } from "react-icons/fa";
+import { FaVideo } from "react-icons/fa";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function SearchHeaderOptions() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
-
-  const searchTerm = searchParams.get("SearchTerm");
+  const searchTerm = searchParams.get("searchTerm");
 
   const selectTab = (tab) => {
     router.push(
-      `/search/${tab === "Images" ? "image" : "web"}?searchTerm${searchTerm}`
+      `/search/${
+        tab === "Images" ? "image" : tab === "Videos" ? "video" : "web"
+      }?searchTerm=${searchTerm}`
     );
   };
 
@@ -41,6 +43,19 @@ export default function SearchHeaderOptions() {
       >
         <FaCamera className="text-md hidden sm:inline-flex text-blue-500" />
         <span>Images</span>
+      </div>
+
+      <div
+        onClick={() => selectTab("Videos")}
+        className={`flex items-center space-x-1 border-b-2 pb-3 px-2 cursor-pointer ${
+          pathname === "/search/video"
+            ? "text-blue-600 !border-blue-600"
+            : "border-transparent"
+        }`}
+      >
+        <FaVideo className="text-md hidden sm:inline-flex text-blue-500" />
+
+        <span>Videos</span>
       </div>
     </div>
   );
