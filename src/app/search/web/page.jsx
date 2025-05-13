@@ -1,15 +1,16 @@
+export const dynamic = "force-dynamic";
+
 import React from "react";
 import Link from "next/link";
 import WebSearchResults from "@/components/WebSearchResults";
 
 export default async function WebSearchPage({ searchParams }) {
-  if (!searchParams?.searchTerm) {
-    return <div className="p-10 text-center">Please enter a search term.</div>;
-  }
+  const searchTerm = searchParams?.searchTerm || "";
 
   await new Promise((resolve) => setTimeout(resolve, 5000));
   const res = await fetch(
-    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchParams.searchTerm}`
+    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchParams.searchTerm}`,
+    { cache: "no-store" }
   );
 
   if (!res.ok) {

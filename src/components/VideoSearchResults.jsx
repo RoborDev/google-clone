@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import PaginationButtons from "./PaginationButtons";
 
 export default function VideoSearchResults({ results }) {
   if (!results?.items) return null;
@@ -42,6 +43,8 @@ export default function VideoSearchResults({ results }) {
           );
         })}
       </div>
+
+      <PaginationButtons />
     </div>
   );
 }

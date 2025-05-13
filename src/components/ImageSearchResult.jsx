@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import PaginationButtons from "./PaginationButtons";
 
 export default function ImageSearchResult({ results }) {
   if (!results?.items) return null;
@@ -33,6 +34,7 @@ export default function ImageSearchResult({ results }) {
           </div>
         ))}
       </div>
+      <PaginationButtons />
     </div>
   );
 }

@@ -1,18 +1,15 @@
+export const dynamic = "force-dynamic";
+
 import React from "react";
 import Link from "next/link";
-import ImageSearchResult from "@/components/ImageSearchResult";
+import ImageSearchResults from "@/components/ImageSearchResult";
 
 export default async function ImageSearchPage({ searchParams }) {
   const searchTerm = searchParams?.searchTerm || "";
 
-  if (!searchTerm) {
-    return <div className="p-10 text-center">Please enter a search term.</div>;
-  }
-
   await new Promise((resolve) => setTimeout(resolve, 5000));
-
   const res = await fetch(
-    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchTerm}&searchType=image`,
+    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchParams.searchTerm}&searchType=image`,
     { cache: "no-store" }
   );
 
@@ -23,7 +20,7 @@ export default async function ImageSearchPage({ searchParams }) {
   const data = await res.json();
   const results = data.items;
 
-  if (!results || results.length === 0) {
+  if (!results) {
     return (
       <div className="flex flex-col justify-center items-center pt-10">
         <h1 className="text-center pb-4 text-3xl">No results found</h1>
@@ -37,5 +34,5 @@ export default async function ImageSearchPage({ searchParams }) {
     );
   }
 
-  return <ImageSearchResult results={data} />;
+  return results && <ImageSearchResults results={data} />;
 }
