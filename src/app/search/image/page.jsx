@@ -1,15 +1,15 @@
 export const dynamic = "force-dynamic";
 
-import React from "react";
 import Link from "next/link";
 import ImageSearchResults from "@/components/ImageSearchResult";
 
 export default async function ImageSearchPage({ searchParams }) {
   const searchTerm = searchParams?.searchTerm || "";
+  const startIndex = searchParams.start || "1";
 
   await new Promise((resolve) => setTimeout(resolve, 5000));
   const res = await fetch(
-    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchParams.searchTerm}&searchType=image`,
+    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchParams.searchTerm}&searchType=image&start=${startIndex}`,
     { cache: "no-store" }
   );
 

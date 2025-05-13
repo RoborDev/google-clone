@@ -6,10 +6,11 @@ import WebSearchResults from "@/components/WebSearchResults";
 
 export default async function WebSearchPage({ searchParams }) {
   const searchTerm = searchParams?.searchTerm || "";
+  const startIndex = searchParams.start || "1";
 
   await new Promise((resolve) => setTimeout(resolve, 5000));
   const res = await fetch(
-    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchParams.searchTerm}`,
+    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${searchParams.searchTerm}&start=${startIndex}`,
     { cache: "no-store" }
   );
 

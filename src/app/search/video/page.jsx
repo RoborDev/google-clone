@@ -4,6 +4,7 @@ import VideoSearchResults from "@/components/VideoSearchResults";
 
 export default async function VideoSearchPage({ searchParams }) {
   const searchTerm = searchParams?.searchTerm || "";
+  // const startIndex = searchParams.start || "1";
 
   if (!searchTerm) {
     return <div className="p-10 text-center">Please enter a search term.</div>;
@@ -12,7 +13,7 @@ export default async function VideoSearchPage({ searchParams }) {
   await new Promise((resolve) => setTimeout(resolve, 5000));
 
   const res = await fetch(
-    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=site:youtube.com ${searchTerm}`,
+    `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=site:youtube.com ${searchParams.searchTerm}`,
     { cache: "no-store" }
   );
 
